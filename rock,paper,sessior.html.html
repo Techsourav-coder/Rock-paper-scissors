@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock,paper,sessior</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+         }
+         body {
+    background: linear-gradient( to right,
+    #5dc397d7 0%, #dddf5d 50%, 
+    #d8a141 50%, #70bce7 100%); 
+        }
+        .container {
+    width: 100%;
+    max-width: 725px;
+    margin: 0 auto;
+}
+h1 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #333533;
+}
+#user-score,
+#comp-score {
+    font-size: 1.5rem;
+}
+#msg {
+    margin-top: 3em;
+    color: #1f211f;
+    font-weight: 700;
+    text-align: center;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5em;
+    border-top: 3px ridge #333533;
+    border-bottom: 3px ridge #333533;
+    border-radius: 0.5em;
+    padding: 1em;
+}
+.score-board {
+    display: flex;
+    align-items: center;
+}
+
+.score {
+    font-size: 0.6rem;
+    font-weight: bold;
+    background-color: #333533;
+    color: #F9F9F9 ;
+    text-align: center;
+    border-radius: 1em;
+    margin-left: 1em;
+    padding: 1em 1em 0em 1em;
+    box-shadow: 2px 3px 5px #333533;
+}
+.choices {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    padding: 2em;
+}
+.choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.choice-image {
+    height: 125px;
+    width: 125px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 2px 3px 5px #333533;
+}
+
+.choice-image:hover {
+    opacity: 95%;
+    cursor: pointer;
+    border: 5px solid #333533;
+}
+@media (min-width: 500px){
+
+body {
+    background: linear-gradient( to right,
+    #5dc397d7 0%, #dddf5d 50%, 
+    #d8a141 50%, #70bce7 100%); 
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+.score {
+    font-size: 0.8rem;
+    padding: 1em 1em 0.2em 1em;
+    margin-left: 3em; 
+}
+
+#user-score,
+#comp-score {
+    font-size: 2.5rem;
+}
+
+.navbar {
+    padding: 1em 2em;
+}
+
+.choice {
+    height: 10%;
+    width: 30%;
+    margin: 1em;
+    
+}
+
+.choice-image {
+    height: 200px;
+    width: 200px;
+}
+}
+
+/* Rules */
+
+.tooltip {
+margin-top: 2em;
+display: flex;
+justify-content:center;
+}
+
+.tooltip-group {
+position: absolute;
+cursor: pointer;
+display: inline-block;
+color: #F9F9F9;
+background-color: #333533;
+box-shadow: 2px 3px 5px #333533;
+border-radius: 0.5em;
+border-bottom: 3.5px solid #333533;
+padding: 0.4em 1em;
+}
+
+.tooltip .tooltipimg {
+visibility: hidden;
+width: 400px;
+padding: 50px;
+position: absolute;
+z-index: 1;
+bottom: 125%;
+left: =80%;
+transform: translateX(-50%);
+opacity: 0;
+transition: opacity 0.3s;
+border-radius: 0.5em;
+}
+
+.tooltip:hover .tooltipimg {
+visibility: visible;
+opacity: 1;
+background-color: #333533;
+}
+
+@media only screen and (min-width: 1200px){
+
+#msg {
+    margin-top: 2em;
+    font-size: 2rem;
+}
+}
+    </style>
+</head>
+<body>
+    <header class="container">
+        <div class="navbar">
+            <h1>Rock<br>Paper<br>scissor</h1>
+            <div class="scoreboard">
+                <div class="score">
+                    <p class="score-title">PLAYER</p>
+                    <p id="user-score">0</p>
+                </div>
+                <div class="score">
+                    <p>COMPUTER</p>
+                    <p id="comp-score">0</p>
+                </div>
+            </div>
+        </div>
+        </header>
+        <main class="container">
+            <div class="msg-container">
+                <p id="msg">play your move!</p>
+            </div>
+            <div class="choices">
+                <div class="choice" id="Rock">
+                    <img class="choice-image" src="C:\Users\soura\Downloads\rock.png" alt="Rock">
+                </div>
+                <div class="choice" id="Paper">
+                    <img class="choice-image" src="C:\Users\soura\Downloads\paper.png" alt="Paper">
+                </div>
+                <div class="choice" id="Scissors">
+                    <img class="choice-image" src="C:\Users\soura\Downloads\scissors.png" alt="Scissors">
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p class="new">
+            coded by
+            <a href="https://www.linkedin.com/in/sourav-kundu-6b5538292?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"> SOURAV KUNDU</a>
+            </p>       
+         </footer>
+        <div class="container-tooltip">
+            <div class="tooltip-group">
+                <h6>RULES</h6>
+                <img class="tooltipimg" src="C:\Users\soura\Downloads\image-rules.svg" alt="game-rules">
+            </div>
+        </div>
+        <script>
+            let userScore  = 0;
+let compScore = 0;
+
+const choices = document.querySelectorAll(".choice");
+const msg = document.querySelector("#msg");
+
+const userScorePara = document.querySelector("#user-score");
+const compScorePara = document.querySelector("#comp-score");
+
+
+// Display Message
+const drawGame = () => {
+    msg.innerText = "Game was Draw. Play again.";
+    msg.style.color = "#333533";
+}
+
+const showWinnner = (userWin, userChoice, compChoice) => {
+    if(userWin) {
+        userScore++;
+        userScorePara.innerText = userScore;
+        msg.innerText = `You Win! ${userChoice} beats ${compChoice}`;
+        msg.style.color = "green";
+    } else {
+        compScore++;
+        compScorePara.innerText = compScore;
+        msg.innerText = `You lose! ${compChoice} beats your ${userChoice}`;
+        msg.style.color = "red";
+    }
+}
+
+// Generate Computer Choice
+const genCompChoice = () => {
+    const options = ["Rock", "Paper", "Scissors"]
+    const randIx = Math.floor(Math.random() * 3);
+    return options[randIx];
+}
+
+const playGame = (userChoice) => {
+    const compChoice = genCompChoice();
+
+    if(userChoice === compChoice){
+        // Draw game
+        drawGame();
+    } else {
+        let userWin = true;
+        if(userChoice === "Rock") {
+            //scissors , paper
+            userWin = compChoice === "Paper" ? false : true;
+        } else if(userChoice === "Paper") {
+            //rock , scissors
+            userWin = compChoice === "Scissors" ? false: true;
+        } else {
+            //rock , paper
+            userWin = compChoice === "Rock" ? false: true;
+        }
+        showWinnner(userWin, userChoice, compChoice);
+    }
+};
+
+choices.forEach((choice) => {
+    choice.addEventListener("click", () => {
+        const userChoice = choice.getAttribute("id");
+        playGame(userChoice);
+    });
+});
+        </script>
+        
+</body>
+</html>
